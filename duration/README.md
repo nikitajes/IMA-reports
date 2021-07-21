@@ -9,5 +9,5 @@ Compressed csv file with all 600 thousand songs is also stored in the repository
 
 This folder also includes some notebooks used in the research stage and the notbook with the final visualisations used directly in the report.
 
-- [visual_funtions](visual_finctions.py) file contains functions used in notebooks for visualisations
+- [visual_funtions](visual_functions.py) file contains functions used in notebooks for visualisations
 - [duration_visual](duration_visual.ipynb) notebook has all of the final visualisations most of which are used in the final report
