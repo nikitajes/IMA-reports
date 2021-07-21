@@ -4,4 +4,6 @@ The dataset used for this research was created by Yamac Eren Ay and released on 
 
 The dataset was reduced to only include the tracks between the years 2000 and 2021. The final csv file with the data is located in this folder. Our future plan is to develop an IMA database and use API calls to retrieve the data directly from it instead of using csv files.
 
+Compressed csv file with all 600 thousand songs is also stored in the repository. To use it, first manually decompress it.
+
 This folder also includes some notebooks used in the research stage and the notbook with the final visualisations used directly in the report.
