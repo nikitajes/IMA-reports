@@ -1,3 +1,4 @@
+## Duration Report
 Duration report focuses on how the length of tracks changed over time in the 21st century.
 
 The dataset used for this research was created by Yamac Eren Ay and released on the Kaggle website. It consists of around 600 thousand songs released on the Spotify US market between years of 1922 and 2021. It can be found by following the link: https://www.kaggle.com/yamaerenay/spotify-dataset-19212020-160k-tracks.
