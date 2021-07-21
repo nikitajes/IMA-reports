@@ -8,11 +8,13 @@ def conv_duration(df):
     """Make new column 'duration_s' in dataframe with 'duration_ms' column"""
     
     df['duration_s'] = df['duration_ms']/1000    
+
     
 def conv_year(df):
     """Make new column 'year' in dataframe with 'release_date' column"""
     
     df['year'] = pd.to_datetime(df['release_date']).dt.year
+
     
 def make_df(data_loc):
     """Make dataframe with relevant columns from data stored in data_loc location"""
@@ -26,7 +28,8 @@ def make_df(data_loc):
         print("Added 'year' column")
         
     return df
-    
+
+
 def slice_data(df,year,popularity,cutoff=np.inf):
     """
     Extract relevant data from dataframe
@@ -50,24 +53,35 @@ def slice_data(df,year,popularity,cutoff=np.inf):
     ].copy()
     
     return data
-    
+
+
 def save_visual(location,name):
     """Save the visualisation in specified location with specified name"""
     
     link = location + name + '.jpg'
     plt.savefig(link,dpi=200)
     print(f'Visalisation saved in {link}')
+
     
 def make_hist(df,year,popularity,cutoff,bins,xlim,kde=True,color='blue',facecolor='snow',
               size=(15,8),save=False,save_loc='./',save_name='histogram'):
     """
-    df: pandas dataframe with the relevant data and columns: 'year' and 'popularity'
-    :tuple: year: tuple with year range
-    popularity: minimum popularity
-    bins: number of bins on the histogram
-    kde: boolean 
-    cutoff: duration cutoff in seconds
-    xlim: limits on x axis [x1,x2]
+    Makes histogram of duration distribution of songs from relevant years and popularity range
+    
+    Args:
+        df (DataFrame): DataFrame with the relevant data and columns: 'year', 'popularity' and 'duration_s'
+        year (tuple): tuple with year range
+        popularity (tuple): tuple with popularity range
+        cutoff (float): duration cutoff in seconds
+        bins (int): number of bins on the histogram
+        xlim (tuple): limits on x axis [x1,x2]
+        kde (boolean): include kernel density estimation curve (default is True)
+        color (string): color of bins and kde curve (default is 'blue')
+        facecolor (string): color of background in seaborn (default is 'snow')
+        size (tuple): figsize in matplotlib (default is (15,8))
+        save (boolean): save figure (default is False)
+        save_loc (string): location where figure is saved (default is './')
+        save_name (string): name of saved figure (default is 'histogram')
     """
 
     data = slice_data(df,year,popularity,cutoff)
@@ -83,8 +97,6 @@ def make_hist(df,year,popularity,cutoff,bins,xlim,kde=True,color='blue',facecolo
     hist.set_xlabel('Duration (seconds)',fontsize=20)
     hist.set_ylabel('Count',fontsize=20)
     
-    
-
     plt.yticks(fontsize=15)
     plt.xticks(fontsize=15)
     plt.xlim(xlim)
@@ -105,6 +117,21 @@ def make_hist(df,year,popularity,cutoff,bins,xlim,kde=True,color='blue',facecolo
         
 def make_line(df,year,popularity,width=5,color='blue',facecolor='snow',
               size=(15,8),save=False,save_loc='./',save_name='trend_line'):
+    """
+    Makes trend line of yearly average duration of songs from relevant years and popularity range
+    
+    Args:
+        df (DataFrame): DataFrame with the relevant data and columns: 'year', 'popularity' and 'duration_s'
+        year (tuple): tuple with year range
+        popularity (tuple): tuple with popularity range
+        width (int): width of trend line (default is 5)
+        color (string): color of bins and kde curve (default is 'blue')
+        facecolor (string): color of background in seaborn (default is 'snow')
+        size (tuple): figsize in matplotlib (default is (15,8))
+        save (boolean): save figure (default is False)
+        save_loc (string): location where figure is saved (default is './')
+        save_name (string): name of saved figure (default is 'trend_line')
+    """
     
     data = slice_data(df,year,popularity) 
     data = data.groupby('year')['duration_s'].mean().reset_index()
@@ -129,6 +156,21 @@ def make_line(df,year,popularity,width=5,color='blue',facecolor='snow',
         
 def make_barplot(df,year,popularity,tick_rotation=False,color='blue',facecolor='snow',
               size=(15,8),save=False,save_loc='./',save_name='bar_plot'):
+    """
+    Makes bar plot of yearly number of songs from relevant years and popularity range
+    
+    Args:
+        df (DataFrame): DataFrame with the relevant data and columns: 'year', 'popularity' and 'duration_s'
+        year (tuple): tuple with year range
+        popularity (tuple): tuple with popularity range
+        tick_rotation (boolean): rotate x ticks 90 degrees (vertical) to fit in more text (default is False)
+        color (string): color of bins and kde curve (default is 'blue')
+        facecolor (string): color of background in seaborn (default is 'snow')
+        size (tuple): figsize in matplotlib (default is (15,8))
+        save (boolean): save figure (default is False)
+        save_loc (string): location where figure is saved (default is './')
+        save_name (string): name of saved figure (default is 'bar_plot')
+    """
         
     data = slice_data(df,year,popularity)
     data = data.groupby('year')['id'].count().reset_index()
