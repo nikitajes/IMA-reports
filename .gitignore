@@ -1,0 +1,5 @@
+*/.ipynb_checkpoints/*
+.ipynb_checkpoints
+data/spotify_tracks.csv
+.DS_Store
+duration/__pycache__
